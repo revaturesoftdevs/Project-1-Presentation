@@ -1,0 +1,91 @@
+body{
+    background-color:#D9EFFC;
+}
+
+
+.x {
+    padding-left: 300px;
+    color: white;
+}
+.y {
+    padding-left: 50px;
+}
+.footcol {
+    color: white;
+    font-size: large;
+}
+.card {
+    margin: 50px;
+    width: 80%;
+    background-color: #D3D3D3;
+}
+.ab {
+    background-color: pink;
+    text-align: center;
+    
+}
+.loginfo{
+    margin:15px;
+}
+.mycard {
+    height: 250px;
+    margin: 100px;
+}
+.myform {
+    height: 600px;
+    padding: 15px;
+}
+.txtArea {
+    height: 100px;
+    width: 500px;
+}
+.custlabel {
+    font-weight: bold;
+    font-size: 18px;
+}
+.custinput {
+    width: 150px;
+    padding-right: 50px;
+}
+.btnsub {
+    width: 180px;
+    margin-left: 50%;
+    margin: 20px;
+    margin-bottom: 20px;
+}
+.mytitle {
+    margin: 20px;
+    padding-left: 150px;
+}
+.employee {
+    margin-top: 30px;
+}
+.menuitem {
+    color: white;
+}
+.btncl {
+    margin: 40px;
+}
+.navbar-nav .active {
+    color: white !important;
+}
+.info{
+    margin-bottom: 50px;
+}
+.empform {
+    height: auto;
+    padding: 15px;
+}
+#approvedStatus{
+    background-color: green;
+}
+.pendingStatus{
+    background-color: red;
+}
+.inputsts{
+    border-color: red;
+    outline: red;
+}
+.empdetails{
+    margin: 40px;
+}
