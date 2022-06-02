@@ -8,7 +8,7 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
   <link rel="stylesheet" href="index.css">
   <script src="emp-crud.js"></script>
-  <script src="manager-Crud.js"></script>
+  
  
 </head>
 
@@ -39,8 +39,8 @@
           </div>
           <div class="col-sm-12 col-md-6 col-lg-3 loginfo">
             <div class="mb-3">
-              <label for="PsswordEmp" class="form-label custlabel">Password</label>
-              <input type="empPassword" class="form-control " id="PasswordEmp">
+              <label for="passwordEmp" class="form-label custlabel">Password</label>
+              <input type="empPassword" class="form-control " id="passwordEmp">
               
             </div>
           </div>
@@ -59,20 +59,20 @@
             <div class="col-sm-12 col-md-6 col-lg-3 loginfo">
               <div class="mb-3">
                 <label for="userName1" class="form-label custlabel">User Name</label>
-                <input type="text1" class="form-control custinput" id="userName1" aria-describedby="emailHelp">
+                <input type="text1" class="form-control custinput" id="userName1" name="mgrUName"aria-describedby="emailHelp">
               </div>
             </div>
             <div class="col-sm-12 col-md-6 col-lg-3 loginfo">
               <div class="mb-3">
                 <label for="Password1" class="form-label custlabel">Password</label>
-                <input type="mngrPassword" class="form-control " id="Password1">
+                <input type="mngrPassword" class="form-control " id="password1" name="mgrPass">
               </div>
             </div>
             <div class="card-body">
               <button type="button" class="btn btn-success" onclick="mngrLogin()">Manager Login</button>
             </div>
           </div>  
-        </div>
+        </div> 
       </div>
     </div>
   </div>

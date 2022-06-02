@@ -28,8 +28,8 @@
               View All Reimbursement
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <li><a class="dropdown-item " href="allresolved.html">Resolved</a></li>
-              <li><a class="dropdown-item" href="allpending.html">pending</a></li>
+              <li><a class="dropdown-item " href="#" onclick="resolvedReim()">Resolved</a></li>
+              <li><a class="dropdown-item" href="#"  onclick="pendingreim(document.getElementById(mngrId).value)">pending</a></li>
             </ul>
           </li>
 
@@ -40,7 +40,7 @@
              View All Employees
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <li><a class="dropdown-item" href="#" onclick="empProfile()">All Employees</a></li>
+              <li><a class="dropdown-item" href="#" onclick="getAllEmployees()">All Employees</a></li>
               <li><a class="dropdown-item" href="singleemp.html">An Employee</a></li>
             </ul>
           </li>
@@ -58,9 +58,9 @@
             alt="Black and White Portrait of a Man" loading="lazy" />
               </a>
               <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuAvatar">
-                <li><a class="dropdown-item " href="mngrprofile.html">My Profile</a></li>
-                <li><a class="dropdown-item" href="managerupdate.html">Update Profile</a></li>
-                <li><a class="dropdown-item" href="#">Logout</a></li>
+                <li><a class="dropdown-item " href="#" onclick="mngrProfile()">My Profile</a></li>
+                <li><a class="dropdown-item" href="#" onclick="managerUpdate()">Update Profile</a></li>
+                <li><a class="dropdown-item" href="index.html">Logout</a></li>
               </ul>
             </li>
           </ul>
