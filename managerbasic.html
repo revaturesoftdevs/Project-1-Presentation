@@ -11,7 +11,8 @@
   <script src="manager-Crud.js"></script>
 </head>
 
-<body>
+<body onload="getUserInfo()">
+
   <!------------------------------------------------------------------------>
   <!-- Navbar -->
   <nav class="navbar navbar-expand-lg bg-dark">
@@ -21,7 +22,7 @@
       </a>
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav ">
-          
+
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdownMenuLink" role="button"
               data-bs-toggle="dropdown" aria-expanded="false">
@@ -29,15 +30,15 @@
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
               <li><a class="dropdown-item " href="#" onclick="resolvedReim()">Resolved</a></li>
-              <li><a class="dropdown-item" href="#"  onclick="pendingreim(document.getElementById(mngrId).value)">pending</a></li>
+              <li><a class="dropdown-item" href="#" onclick="pendingreim()">pending</a></li>
             </ul>
           </li>
 
-          
+
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdownMenuLink" role="button"
               data-bs-toggle="dropdown" aria-expanded="false">
-             View All Employees
+              View All Employees
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
               <li><a class="dropdown-item" href="#" onclick="getAllEmployees()">All Employees</a></li>
@@ -55,7 +56,7 @@
               <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdownMenuLink" role="button"
                 data-bs-toggle="dropdown" aria-expanded="false">
                 <img src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp" class="rounded-circle" height="25"
-            alt="Black and White Portrait of a Man" loading="lazy" />
+                  alt="Black and White Portrait of a Man" loading="lazy" />
               </a>
               <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuAvatar">
                 <li><a class="dropdown-item " href="#" onclick="mngrProfile()">My Profile</a></li>
@@ -66,9 +67,9 @@
           </ul>
         </div>
       </div>
- <!-- Right elements -->
+      <!-- Right elements -->
 
-     
+
   </nav>
   <!-- Navbar -->
 
@@ -102,9 +103,9 @@
   <div class="container employee">
     <h2> Welcome to Management </h2>
     <p>You are very important part of our Management which means you have more authority and more responsibility
-        towards Organization. You can view all information about your employees and approve or deny their requests
-        according to pre defined rules and regulations. For any details and enquires you are able to conatact your
-        employees and higher management respectively.
+      towards Organization. You can view all information about your employees and approve or deny their requests
+      according to pre defined rules and regulations. For any details and enquires you are able to conatact your
+      employees and higher management respectively.
     </p>
   </div>
   <div id="profileInfo"></div>

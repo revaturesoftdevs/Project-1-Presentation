@@ -1,79 +1,93 @@
 /* Login as an employee*/
-function employeeLogin(){
+function employeeLogin() {
 
     // construct a java script object whose properties match the bookpojo object's properties
-        // of the back end application
+    // of the back end application
     let newEmp = {
         emp_id: 0,
         emp_username: document.getElementById("userName").value,
         emp_password: document.getElementById("passwordEmp").value,
         emp_firstName: "",
-        emp_lastName: "",       
-	    mgr_id:""	
-	
+        emp_lastName: "",
+        mgr_id: ""
+
     }
-   
+
     console.log(newEmp);
     fetch("http://localhost:7474/loginEmp", {
         method: 'post',
         body: JSON.stringify(newEmp) // converts JS object to JSON 
     })
-   
-    .then(response => response.json())
-    .then(responseJson => {
-        console.log(responseJson)
-        if(responseJson.emp_id!=0){
-            window.location.replace("/empbasic.html");
-        }
-       else{
-           alert("login failed");
-       }
-       //sessionStorage.setItem("user",JSON.stringify(newMngr));
-       
-    });
-    
-    
+
+        .then(response => response.json())
+        .then(responseJson => {
+            console.log(responseJson)
+            if (responseJson.emp_id != 0) {
+                window.location.replace("/empbasic.html");
+            }
+            else {
+                alert("login failed");
+            }
+            //sessionStorage.setItem("user",JSON.stringify(newMngr));
+
+        });
+
+
+
+
 }
 
 /*Manager login */
 
-function mngrLogin(){
+function mngrLogin() {
 
     // construct a java script object whose properties match the bookpojo object's properties
-        // of the back end application
+    // of the back end application
+    let managerDetails = getUserInfo()
     let newMngr = {
         mgr_id: 0,
         mgr_username: document.getElementById("userName1").value,
         mgr_password: document.getElementById("password1").value,
         mgr_firstName: "",
-        mgr_lastName: ""        
-    }   
+        mgr_lastName: ""
+    }
     //sessionStorage.setItem("user",JSON.stringify(newMngr));
-   // console.log(newMngr);
+    // console.log(newMngr);
     fetch("http://localhost:7474/LoginManager", {
         method: 'post',
         body: JSON.stringify(newMngr) // converts JS object to JSON 
     })
-   
-    .then(response => response.json())
-    .then(responseJson => {
-        //console.log(responseJson)
-        if(responseJson.mgr_id!=0){
-            console.log(responseJson);
-            window.location.replace("/managerbasic.html");
-        }
-       else{
-           alert("login failed");
-       }
-       //sessionStorage.setItem("user",JSON.stringify(newMngr));
-       
-    });
-    
-    
+        .then(response => response.json())
+        .then(responseJson => {
+            console.log(responseJson)
+            if (responseJson.mgr_id != 0) {
+                console.log(responseJson);
+                sessionStorage.setItem('user', responseJson.mgr_id);
+                window.location.replace("/managerbasic.html");
+            }
+            else {
+                alert("login failed");
+                // console.log(responseJson);
+            }
+            // sessionStorage.setItem("user", JSON.stringify(newMngr));
+
+        }).catch(error => console.log(error));
+
+
+
 }
-        
-       // let retriveInfo=JSON.parse(sessionStorage.getItem("user"));
-        //console.log(retriveInfo);
+function getUserInfo() {
+    let manager = sessionStorage.getItem('user');
+    console.log(manager);
+
+
+
+}
+// var retriveInfo = JSON.parse(sessionStorage.getItem("user"));
+// console.log(retriveInfo);
+
+// let retriveInfo=JSON.parse(sessionStorage.getItem("user"));
+//console.log(retriveInfo);
 
 // function mngrLogin(){
 //     console.log(mngrId);
@@ -91,14 +105,17 @@ function mngrLogin(){
 // }
 /********************************************************************* */
 /*pending reimbursements */
-function pendingreim(mngrId){
+// var retriveInfo = JSON.parse(sessionStorage.getItem("user"));
+function pendingreim() {
     //console.log(mngrId);
-    fetch("http://localhost:7474/PendingReimbursements/"+mngrId,)
-    //fetch("http://localhost:7474/PendingReimbursements/mngrId")
-    .then(response=>response.json()
-    ).then(responseJason=>{
-        //console.log(responsejason);
-    let pendingreq=`<table class="table-stripped">
+    let manager = sessionStorage.getItem('user');
+    // let managerInfo = getUserInfo();
+    fetch("http://localhost:7474/PendingReimbursements/" + manager)
+        //fetch("http://localhost:7474/PendingReimbursements/mngrId")
+        .then(response => response.json()
+        ).then(responseJson => {
+            console.log(responseJson);
+            let pendingreq = `<table class="table-stripped">
                     <thead>
                         <tr>
                             <th>Reimbursement Id</th>
@@ -110,21 +127,21 @@ function pendingreim(mngrId){
                         </tr>
                     </thead>
                     <tbody>`;
-                    for(let req of responseJason){
-                        pendingreq +=`<tr>
-                                        <td>${req.rId}</td>
-                                        <td>${req.eId}</td>
-                                        <td>${req.mId}</td>
-                                        <td>${req.reimDesc}</td>
-                                        <td>${req.reimAmount}</td>
-                                        <td>${req.reimStatus}</td>
+            for (let req of responseJson) {
+                pendingreq += `<tr>
+                                        <td>${req.reimbursement_id}</td>
+                                        <td>${req.emp_id}</td>
+                                        <td>${req.mgr_id}</td>
+                                        <td>${req.reimbursement_desc}</td>
+                                        <td>${req.reimbursement_amt}</td>
+                                        <td>${req.reimbursement_status}</td>
                                     </tr>`;
-                    }
-                    pendingreq +=`</tbody></table>`;
-                    document.getElementById("profileInfo").innerHTML=pendingreq;
-    })
+            }
+            pendingreq += `</tbody></table>`;
+            document.getElementById("profileInfo").innerHTML = pendingreq;
+        })
 
-    
+
 }
 
 
@@ -132,14 +149,15 @@ function pendingreim(mngrId){
 /******************************************************************** */
 /* Resolved ones */
 
-function resolvedReim(mngrId){
+function resolvedReim() {
+    let manager = sessionStorage.getItem('user');
     //console.log(mngrId);
-    fetch("http://localhost:7474/ResolvedReimbursements/"+mngrId,)
-    //fetch("http://localhost:7474/PendingReimbursements/mngrId")
-    .then(response=>response.json()
-    ).then(responseJason=>{
-        //console.log(responsejason);
-    let resolvedReq=`<table class="table-stripped">
+    fetch("http://localhost:7474/ResolvedReimbursements/" + manager,)
+        //fetch("http://localhost:7474/PendingReimbursements/mngrId")
+        .then(response => response.json()
+        ).then(responseJson => {
+            //console.log(responsejason);
+            let resolvedReq = `<table class="table-stripped">
                     <thead>
                         <tr>
                             <th>Reimbursement Id</th>
@@ -151,30 +169,30 @@ function resolvedReim(mngrId){
                         </tr>
                     </thead>
                     <tbody>`;
-                    for(let req of responseJason){
-                       resolvedReq +=`<tr>
-                                        <td>${req.rId}</td>
-                                        <td>${req.eId}</td>
-                                        <td>${req.mId}</td>
-                                        <td>${req.reimDesc}</td>
-                                        <td>${req.reimAmount}</td>
-                                        <td>${req.reimStatus}</td>
+            for (let req of responseJson) {
+                resolvedReq += `<tr>
+                                    <td>${req.reimbursement_id}</td>
+                                    <td>${req.emp_id}</td>
+                                    <td>${req.mgr_id}</td>
+                                    <td>${req.reimbursement_desc}</td>
+                                    <td>${req.reimbursement_amt}</td>
+                                    <td>${req.reimbursement_status}</td>
                                     </tr>`;
-                    }
-                    resolvedReq  +=`</tbody></table>`;
-                    document.getElementById("profileInfo").innerHTML=resolvedReq ;
-    })
+            }
+            resolvedReq += `</tbody></table>`;
+            document.getElementById("profileInfo").innerHTML = resolvedReq;
+        })
 
-    
+
 }
 
 
 /******************************************************************* */
 /* Fetch All employees */
-function getAllEmployees(){
-    
-   // console.log("data printed on the console....");                            
-    fetch("http://localhost:7474/AllEmployees/{mid}")
+function getAllEmployees() {
+    let manager = sessionStorage.getItem('user');
+    // console.log("data printed on the console....");                            
+    fetch("http://localhost:7474/AllEmployees/" + manager)
         .then(response => response.json())
         .then(responseJson => {
             console.log(responseJson)
@@ -189,13 +207,13 @@ function getAllEmployees(){
                             </tr>
                             </thead>
                             <tbody>`;
-            for(let emp of responseJson){
+            for (let emp of responseJson) {
                 empTableData += `<tr>
-                            <td>${emp.EmpId}</td>
-                            <td>${emp.MngrId}</td>
-                            <td>${emp.EmpFirstName}</td>
-                            <td>${emp.EmpLastName}</td>
-                            <td>${emp.EmpUserName}</td>
+                            <td>${emp.emp_id}</td>
+                            <td>${emp.mgr_id}</td>
+                            <td>${emp.emp_firstName}</td>
+                            <td>${emp.emp_lastName}</td>
+                            <td>${emp.emp_username}</td>
                                   </tr>`;
             }
             empTableData += `</tbody></table>`;
@@ -208,22 +226,22 @@ function getAllEmployees(){
 
 /****************************************************************** */
 /*****Manager Profile *******/
-function mngrProfile(){
+function mngrProfile() {
 
 }
 /***************************************************************** */
 /*************Manager Profile update******************** */
 
-function managerupdate(){}
+function managerupdate() { }
 /**************************************************************** */
 /* Fetch an employee details */
-function empprofile(empId){
+function empprofile(empId) {
 
-    fetch("http://localhost:7474/profile/"+empId)
-    .then(response=>response.json())
-    .then(responseJason=>{
-        console.log(responseJason);
-        let profileform=`<table class="table-stripped">
+    fetch("http://localhost:7474/profile/" + empId)
+        .then(response => response.json())
+        .then(responseJson => {
+            console.log(responseJson);
+            let profileform = `<table class="table-stripped">
             <thead>
                 <tr>
                     <th>Employee Id</th>
@@ -236,8 +254,8 @@ function empprofile(empId){
                 </tr>
             </thead>
             <tbody>`;
-            for(let emp of responseJason){
-                profileform +=`<tr>
+            for (let emp of responseJson) {
+                profileform += `<tr>
                             <td>${emp.EmpId}</td>
                             <td>${emp.MngrId}</td>
                             <td>${emp.EmpFirstName}</td>
@@ -251,16 +269,16 @@ function empprofile(empId){
 
                 </tr>`;
             }
-            profileform +=`</tbody></table>`;
-            document.getElementById("profileInfo")=profileform;
-    })
-    .catch(error=>console.error(error));
-   
-    
+            profileform += `</tbody></table>`;
+            document.getElementById("profileInfo") = profileform;
+        })
+        .catch(error => console.error(error));
+
+
 }
 /* update Profile */
-function updateProfileForm(){
-    let updateForm= `<div class="container">
+function updateProfileForm() {
+    let updateForm = `<div class="container">
     <form>
         <div class="mb-3 mt-3">
             <label for="eUserName" class="form-label">User Name</label>
@@ -279,23 +297,23 @@ function updateProfileForm(){
     </form>
 </div>
 `;
-document.getElementById("profileInfo").innerHTML= updateForm;
+    document.getElementById("profileInfo").innerHTML = updateForm;
 }
 
 
 
-function updateProfile(){
-    let updateInfo= {
+function updateProfile() {
+    let updateInfo = {
         EmpUserName: document.getElementById("eUserName").value,
         EmpPassword: document.getElementById("ePassword").value,
         empNewPassword: document.getElementById("newPassword").value,
-        
+
     }
-    fetch("http://localhost:7474/updateemp",{
-        method:'put',// update profile
+    fetch("http://localhost:7474/updateemp", {
+        method: 'put',// update profile
         body: JSON.stringify(updateInfo)
     })
-    .then(response=>empprofile(empId));
+        .then(response => empprofile(empId));
 }
 
 
